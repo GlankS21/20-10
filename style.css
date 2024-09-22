@@ -1,3 +1,8 @@
+
+:root{
+    --positionOwl: -4em;
+}
+
 *{
     margin: 0;
     padding: 0;
@@ -16,4 +21,29 @@
     background-image: -moz-linear-gradient(bottom,   #ff9a9e  0%, #fecfef 100%);
     background-image: -webkit-linear-gradient(bottom,   #ff9a9e  0%, #fecfef 100%);
     background-image: -ms-linear-gradient(bottom,   #ff9a9e  0%, #fecfef 100%);
+}
+
+
+#owl{
+    position: absolute;
+    z-index: 2;
+    left: -20em;
+    bottom: -20em;
+    width: 25em;
+    transform: rotate(10deg);
+    animation-name: appear;
+    animation-delay: 4s;
+    -webkit-animation-duration: 4s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes appear{
+    0%{
+        left: -20em;
+        bottom: -20em;
+    }
+    100%{
+        left: var(--positionOwl);
+        bottom: var(--positionOwl);
+    }
 }
