@@ -1,21 +1,16 @@
-
-:root{
-    --positionOwl: -4em;
-}
-
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
+    /* overflow: hidden; */
 }
 
 #canvas{
     position:absolute;
     top:0;
     left:0;
-    z-index:1;
     background-image: linear-gradient(bottom,  #ff9a9e  0%, #fecfef 100%);
     background-image: -o-linear-gradient(bottom,   #ff9a9e  0%, #fecfef 100%);
     background-image: -moz-linear-gradient(bottom,   #ff9a9e  0%, #fecfef 100%);
@@ -23,27 +18,126 @@
     background-image: -ms-linear-gradient(bottom,   #ff9a9e  0%, #fecfef 100%);
 }
 
-
 #owl{
     position: absolute;
-    z-index: 2;
     left: -20em;
     bottom: -20em;
     width: 25em;
-    transform: rotate(10deg);
+    transition: width 2s;
+    animation-delay: 2s;
     animation-name: appear;
-    animation-delay: 4s;
     -webkit-animation-duration: 4s;
+    animation-fill-mode: forwards;
+}
+
+#owl:hover{
+    width: 26em;
+}
+
+.message{
+    opacity: 0;
+    position: absolute;
+    left: 5em;
+    bottom: 14em;
+    animation-delay: 6s;
+    animation-name: appearMessage;
+    -webkit-animation-duration: 2s;
+    animation-fill-mode: forwards;
+}
+
+.message-box{
+    position: relative;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    padding: 10px;
+    background-color: #A8DDFD;
+    width: 200px;
+    height: 70px;
+    text-align: left;
+    font: 400 .9em 'Open Sans', sans-serif;
+    border: 1px solid #97C6E3;
+    border-radius: 10px;
+}
+
+.message-box::after{
+    content: '';
+    position: absolute;
+    border-top: 100px solid #A8DDFD;
+    border-left: 15px solid transparent;
+    border-right: 10px solid transparent;
+    left: 20px;
+}
+
+.message-content{
+    width: fit-content;
+}
+
+.message-content p {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: solid 1px #333;
+    animation: type-text 4s steps(25) forwards 6s, cursor-blink 1s steps(1) infinite 6s;
+}
+
+.message-content button{
+    opacity: 0;
+    color: #333;
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    text-align: right;
+    background: none;
+    padding: 0 2px;
+    border: none;
+    border-bottom: 1px solid;
+    outline: none;
+    cursor: pointer;
+    animation-delay: 10s;
+    animation-name: appearButton;
+    -webkit-animation-duration: 0.5s;
     animation-fill-mode: forwards;
 }
 
 @keyframes appear{
     0%{
+        transform: rotate(0);
         left: -20em;
         bottom: -20em;
     }
     100%{
-        left: var(--positionOwl);
-        bottom: var(--positionOwl);
+        transform: rotate(10deg);
+        left: -6em;
+        bottom: -4em;
     }
 }
+
+@keyframes appearMessage {
+    0%{
+        opacity: 0;
+        transform: scale(0);
+    }
+    100%{
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes type-text {
+    0% { width: 0%;}
+    100% { width: 100%;}
+}
+
+@keyframes cursor-blink {
+    0% { border-right-color: #333; }      
+    24% { border-right-color: #333; }      
+    25% { border-right-color: transparent; } 
+    75% {border-right-color: transparent;}
+    76% {border-right-color: #333;}
+    100% { border-right-color: #333; }     
+}
+
+@keyframes appearButton {
+    0%{opacity: 0;}
+    100%{opacity: 1;}
+}
+
