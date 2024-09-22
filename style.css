@@ -169,7 +169,7 @@
     background-color: #ffffff00;
     width: 60%;
     max-width: calc(100% - 100px);
-    min-width: 600px !important;
+    min-width: 800px !important;
     animation: modalFadeIn ease 0.5s;
 }
 
