@@ -14,50 +14,43 @@
         <div class="message-box">
             <div class="message-content">
                 <p>Bạn có 1 tin nhắn mới !</p>
-                <button>Đọc ngay</button>
+                <button class="js-email">Đọc ngay</button>
             </div>
         </div>
     </section>
 
     <div class="modal js-modal">
         <div class="modal-container js-modal-container">
-            <header class="modal-header">
-                <div class="modal-close js-modal-close">
-                    <i class="ti-close"></i>
+            <div class="page-wrapper">
+                <div class="card">
+                    <div class="card-packaging bg-img-base" style="background-image: url(https://i.pinimg.com/originals/7f/10/f3/7f10f39e54aad282f4d3d35a7537b4d3.gif)">
+                    <div class="card-center">
+                        <a class="close bg-img-base" href="#" style="background-image: url(https://cdn3.iconfinder.com/data/icons/pyconic-icons-1-2/512/close-circle-512.png)"></a>
+                    </div>
+                    <div class="card--first">
+                        <div class="card-wrapper bg-img-base front" style="background-image: url(https://i.pinimg.com/originals/fe/65/a8/fe65a8ae6721c480efc423000b4ecb32.gif)">
+                        <a class="open" href="#">
+                          <div class="open-tail"></div>
+                          <div class="open-main"><span class="open-title">Open</span></div>
+                        </a>
+                      </div>
+                      <div class="card-wrapper bg-img-base back" style="background-image: url(https://i.pinimg.com/originals/70/b7/b4/70b7b4e58274aba1899e20bff646f900.gif)">
+                      </div>
+                    </div>
+                    <div class="card--third">
+                      <div class="card-wrapper bg-img-base front" style="background-image: url(https://i.pinimg.com/originals/ed/23/9d/ed239ddc0e23afd424de14db792c6bf8.gif)"></div>
+                      <div class="card-wrapper bg-img-base back" style="background-image: url(https://i.pinimg.com/originals/79/81/0c/79810c9bec5b48c4e01ba666068e2447.gif)"></div>
+                    </div>
+                  </div>
                 </div>
-                <i class="ti-bag"></i>
-                Tickets
-            </header>
-
-            <div class="modal-body">
-                <label for="ticket-quantity" class="modal-label">
-                    <i class="ti-shopping-cart"></i>
-                    Tickets, $15 per person
-                </label><br>
-                <input id="ticket-quantity" type="text" class="modal-input" placeholder="How many?"><br>
-
-                <label for="ticket-email" class="modal-label">
-                    <i class="ti-user"></i>
-                    Send To
-                </label><br>
-                <input  id="ticket-email" type="text" class="modal-input" placeholder="Enter email"><br>
-
-                <button id="buy-tickets">
-                    PAY
-                    <i class="ti-check"></i>
-                </button>
             </div>
-
-            <footer class="modal-footer">
-                <p class="modal-help">Need <a style="color: #2196F3;" href="">help?</a></p>
-            </footer>
         </div>
     </div>
 </body>
 
 <script>
 // -------------------back-ground-----------------------------
-    var canvas = document.getElementById("canvas"),
+    const canvas = document.querySelector("canvas"),
     ctx = canvas.getContext("2d"),
     objects = [],
     objectsCount = 200,
@@ -69,9 +62,8 @@
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     // object image
-    var image = new Image();
+    const image = new Image();
     image.src = 'https://manongruaz.com/wp-content/uploads/2023/04/Artboard-2@4x-8-3.png';
-    
     for (var i = 0; i < objectsCount; i++) {
         let opacity = Math.random() + 0.4;
         let objectWidth = (Math.floor(Math.random() * 20) + 20) * (opacity + 0.4);
@@ -96,7 +88,6 @@
             _ratate: Math.random() 
         });
     }
-
     function drawobjects() {
         objects.map((object) => {
             ctx.beginPath();
@@ -168,9 +159,34 @@
         update();
         requestAnimationFrame(tick);
     }
-
     tick();
+    window.addEventListener('resize', () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    });
 // -------------------back-ground-----------------------------
-  
+</script>
+<script>
+    const buyBtn = document.querySelector('.js-email');
+    const modal = document.querySelector('.js-modal');
+    const modalContainer = document.querySelector('.js-modal-container');
+
+    function show() { modal.classList.add('open');}
+    function hide() { modal.classList.remove('open');}
+
+    buyBtn.addEventListener('click', show);
+    modal.addEventListener('click', hide);
+    modalContainer.addEventListener('click', function (event) { event.stopPropagation();});
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementsByClassName('open')[0].addEventListener('click', function () {
+            document.getElementsByClassName('card-packaging')[0].classList.add('is-open')
+        })
+        document.getElementsByClassName('close')[0].addEventListener('click', function () {
+            document.getElementsByClassName('card-packaging')[0].classList.remove('is-open')
+        })
+    });
 </script>
 </html>
