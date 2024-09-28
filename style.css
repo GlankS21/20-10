@@ -1,10 +1,13 @@
+:root{
+    --size: 14px;
+}
+
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
-    /* overflow: hidden; */
+    font-family: 'Pacifico', cursive;
 }
 
 #canvas{
@@ -52,7 +55,7 @@
     padding: 10px;
     background-color: #A8DDFD;
     width: 200px;
-    height: 70px;
+    height: 80px;
     text-align: left;
     font: 400 .9em 'Open Sans', sans-serif;
     border: 1px solid #97C6E3;
@@ -73,6 +76,7 @@
 }
 
 .message-content p {
+    font-size: var(--size);
     overflow: hidden;
     white-space: nowrap;
     border-right: solid 1px #333;
@@ -80,6 +84,7 @@
 }
 
 .message-content button{
+    font-size: var(--size);
     opacity: 0;
     color: #444444;
     position: absolute;
@@ -170,15 +175,15 @@
     width: 60%;
     max-height: 80%;
     max-width: calc(100% - 100px);
-    animation: modalFadeIn ease 0.5s;
+    animation: modalFadeIn ease 2s;
 }
 
 @keyframes modalFadeIn{
-    from{
+    0%{
         opacity: 0;
         transform: translateY(-100px);
     }
-    to{
+    100%{
         opacity: 1;
         transform: translate(0px);
     }
@@ -194,7 +199,7 @@
     position: relative;
     min-height: 500px;
 }
-  
+   
 .card-packaging {
     width: 30%;
     display: block;
@@ -211,8 +216,6 @@
     transform: translateY(-50%);
     right: -7px;
     transition: .3s;
-    border-bottom: 1px solid white;
-    border-top: 1px solid white;
 }
   
 .card .open:hover {
@@ -220,45 +223,23 @@
     transition: .3s;
 }
   
-.card .open-tail {
-    position: relative;
-    height: 36px;
-    width: 30px;
-    float: left;
-}
-  
-.card .open-tail:before {
-    content: '';
-    display: block;
-    border-top: 18px solid #d24242;
-    border-left: 30px solid transparent;
-    position: absolute;
-    left: 0;
-    top: 0;
-}
-  
-.card .open-tail:after {
-    content: '';
-    display: block;
-    position: absolute;
-    top: 18px;
-    left: 0;
-    border-top: 18px solid transparent;
-    border-right: 30px solid #d24242;
-}
-  
 .card .open-main {
     display: inline-block;
     line-height: 36px;
-    background: #d24242;
+    background: #9183b2;
     padding: 0 3px 0 0;
+    border-top-left-radius: 7px 7px;
+    border-bottom-left-radius: 7px 7px;  
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 }
   
 .card .open-title {
+    text-align: center;
+    min-width: 70px;
     display: inline-block;
     line-height: 30px;
-    border-top: 1px dashed white;
-    border-bottom: 1px dashed white;
+    /* border-top: 1px dashed white;
+    border-bottom: 1px dashed white; */
     color: white;
     text-transform: uppercase;
     font-weight: 700;
@@ -288,7 +269,7 @@
     transition: all .9s;
     box-shadow: -2px 0 6px 2px #926c6c;
 }
-  
+
 .card-packaging.is-open .card--first {
     transform: rotateY(180deg);
     transition: all .9s;
@@ -299,7 +280,93 @@
     transition: all .9s;
     transition-delay: .4s;
 }
-  
+
+.card-center {
+    position: relative;
+    padding: 35px 25px;
+    background-image: url(./images/background2.png);
+    background-size: cover;
+    background-position: center;
+    z-index: 1; 
+}
+
+.card-center::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url(./images/background2.png);
+    background-size: cover;
+    background-position: center;
+    filter: blur(90px);
+    z-index: -1; 
+    clip-path: inset(35px 25px); 
+}
+
+.card-center-content p{
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin: 5px;
+}
+
+.card-center-content-top{
+    font-family: 'Playball', cursive;
+    font-size: 16px;
+    color: #081938;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.card-center-content-name{
+    position: relative;
+    font-family: 'Great Vibes', cursive;
+    font-size: 28px;
+    color: #081938;
+    text-align: center;
+}
+
+.card-center-content-invite{
+    font-family: 'Playball', cursive;
+    font-size: 14px;
+    color: #081938;
+    margin: 20px 0 10px 0;
+    text-align: center;
+}
+
+.card-center-content-left, .card-center-content-right{
+    flex: 1;
+    text-align: center;
+    color: #081938;
+}
+
+.card-center-content-left{
+    padding-right: 6px;
+    border-right: 1px solid #333;
+}
+
+.card-center-content-left p, sup{
+    font-family: 'Playball', cursive;
+    font-size: 12px;
+}
+
+.card-center-content-right p{
+    font-family: 'Playball', cursive;
+    font-size: 12px;
+    margin: 5px;
+}
+
+.card-center-content-bottom{
+    position: absolute;
+    bottom: 25px;
+    text-align: center;
+    font-family: 'Playball', cursive;
+    font-size: 16px;
+    color: #081938;
+}
+
 .card-wrapper {
     width: 100%;
     height: 100%;
