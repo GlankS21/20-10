@@ -79,8 +79,8 @@
     </div>
 
     <!------------------------------------Audio-------------------------------------->
-    <audio id="AudioHold" src="./Audio/Audio1.mp3" type="audio/mpeg"></audio>
-    <audio id="AudioMain" src="./Audio/Audio2.mp3" type="audio/mpeg"></audio>
+    <audio id="AudioHold" src="./Audio/AudioHold.mp3" type="audio/mpeg"></audio>
+    <audio id="AudioMain" src="./Audio/Audio1.mp3" type="audio/mpeg"></audio>
 </body>
 
 <script>
@@ -224,9 +224,17 @@
     });
 // ---------------------Audio------------------------------------
     const audio = document.getElementById("AudioHold");
-    const playButton = document.querySelector('.js-email');
-    playButton.addEventListener("click", function() {
-            audio.play();  
+    window.onload = function() {
+        audio.play();
+    };
+    function playNewMusic() {
+        audio.pause(); 
+        audio.src = "./Audio/Audio1.mp3"; 
+        audio.load(); 
+        audio.play();
+    }
+    document.querySelector('.js-email').addEventListener("click", function() {
+        playNewMusic();  
     });
 </script>
 </html>
