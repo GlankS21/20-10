@@ -12,12 +12,10 @@
 </head>
 <body style="overflow: hidden;">
     <!------------------------------------Audio-------------------------------------->
-    <audio id="AudioHold" controls autoplay>
-        <source src="./Audio/AudioHold.mp3" type="audio/mpeg">
-    </audio>
+    <audio id="AudioHold" loop="loop" src="./Audio/AudioHold.mp3" type="audio/mpeg"></audio>
     <!------------------------------------Main--------------------------------------->
     <canvas id="canvas"></canvas>
-    <img id ="owl" src="./images/owl.png" alt="">
+    <img id ="owl" src="./images/owl2.png" alt="">
     <section class="message">
         <div class="message-box">
             <div class="message-content">
@@ -26,7 +24,6 @@
             </div>
         </div>
     </section>
-
     <!------------------------------------Modal-------------------------------------->
     <div class="modal js-modal">
         <div class="modal-container js-modal-container">
@@ -54,7 +51,7 @@
                                     <i class="fa-solid fa-location-dot"></i>
                                     <div>
                                         <p>LOMONOSOVA</p>
-                                        <p>Room: xxx</p>
+                                        <p style="padding-top: 3.2px;">Room: xxx</p>
                                     </div>
                                 </div>
                             </div>
@@ -98,7 +95,7 @@
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     const image = new Image();
-    image.src = 'https://manongruaz.com/wp-content/uploads/2023/04/Artboard-2@4x-8-3.png';
+    image.src = './images/heart.png';
     for (var i = 0; i < objectsCount; i++) {
         let opacity = Math.random() + 0.4;
         let objectWidth = (Math.floor(Math.random() * 20) + 20) * (opacity + 0.4);
@@ -225,9 +222,6 @@
     });
 // ---------------------Audio------------------------------------
     const audio = document.getElementById("AudioHold");
-    window.onload = function() {
-        audio.play();
-    };
     function playNewMusic() {
         audio.pause(); 
         audio.src = "./Audio/Audio1.mp3"; 

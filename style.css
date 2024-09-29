@@ -14,11 +14,9 @@
     position:absolute;
     top:0;
     left:0;
-    background-image: linear-gradient(bottom,  #ff9a9e  0%, #fecfef 100%);
-    background-image: -o-linear-gradient(bottom,   #ff9a9e  0%, #fecfef 100%);
-    background-image: -moz-linear-gradient(bottom,   #ff9a9e  0%, #fecfef 100%);
-    background-image: -webkit-linear-gradient(bottom,   #ff9a9e  0%, #fecfef 100%);
-    background-image: -ms-linear-gradient(bottom,   #ff9a9e  0%, #fecfef 100%);
+    background-image: url(./images/main-background.jpg);
+    background-size:cover;
+    background-position: center;
 }
 
 #owl{
@@ -116,7 +114,7 @@
     100%{
         transform: rotate(10deg);
         left: -6em;
-        bottom: -4em;
+        bottom: -11em;
     }
 }
 
