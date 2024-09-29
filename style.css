@@ -361,9 +361,8 @@
 .card-center-content-bottom{
     position: absolute;
     bottom: 25px;
-    text-align: center;
     font-family: 'Playball', cursive;
-    font-size: 16px;
+    font-size: 15px;
     color: #081938;
 }
 
