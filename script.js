@@ -137,7 +137,11 @@ const btnClose = document.querySelector('.close');
 const readEmail = document.querySelector('.js-email');
 const modal = document.querySelector('.js-modal');
 const modalContainer = document.querySelector('.js-modal-container');
-function show() { modal.classList.add('open'); }
+function show() { 
+    setTimeout(() => {
+        modal.classList.add('open'); 
+    },1500);
+}
 function hide() { modal.classList.remove('open'); }
 readEmail.addEventListener('click', function() {
     show();
@@ -168,5 +172,7 @@ function playNewMusic() {
     audio.play();
 }
 document.querySelector('.js-email').addEventListener("click", function() {
-    playNewMusic();  
+    setTimeout(() => {
+        playNewMusic();  
+    }, 1000);
 });
