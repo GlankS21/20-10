@@ -7,15 +7,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Playball&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="https://static.vecteezy.com/system/resources/previews/029/752/747/non_2x/question-mark-3d-icon-on-black-circle-png.png"/>
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <title>This is just a website</title>
 </head>
 <body style="overflow: hidden;">
     <!------------------------------------Audio-------------------------------------->
     <audio id="AudioHold" loop="loop" src="./Audio/AudioHold.mp3" type="audio/mpeg"></audio>
     <!------------------------------------Main--------------------------------------->
     <canvas id="canvas"></canvas>
-    <img id ="owl" src="./images/owl2.png" alt="">
+    <img id ="owl" src="./images/owl.png" alt="">
     <section class="message">
         <div class="message-box">
             <div class="message-content">
@@ -95,94 +96,112 @@
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
     const image = new Image();
-    image.src = './images/heart.png';
-    for (var i = 0; i < objectsCount; i++) {
+    image.src = 'https://i.pinimg.com/originals/90/2c/2b/902c2bbccb72ca76cf3bbe95741174e9.png';
+    let newImage = null; 
+    let transitionProgress = 0; 
+    // Effect
+    for (let i = 0; i < objectsCount; i++) {
         let opacity = Math.random() + 0.4;
         let objectWidth = (Math.floor(Math.random() * 20) + 20) * (opacity + 0.4);
         let objectHeight = image.naturalHeight / image.naturalWidth * objectWidth;
         let speed = Math.random() * 1 + 1;
         objects.push({
-            // khởi tạo kích thước image
             width: objectWidth,
             height: objectHeight,
-            // vị trí bắt đầu
             x: Math.random() * canvas.width,
             y: Math.random() * canvas.height - objectHeight,
             speed: speed,
             vY: speed,
             vX: 0,
             d: Math.random() * 1.2 - 0.6,
-            stepSize: (Math.random()) / 20,
+            stepSize: Math.random() / 20,
             step: 0,
             angle: Math.random() * 180 - 90,
             rad: Math.random(),
             opacity: opacity,
-            _ratate: Math.random() 
+            _rotate: Math.random(),
+            currentOpacity: 1 
         });
     }
+
+    // Redraw
     function drawobjects() {
-        objects.map((object) => {
+        objects.forEach(object => {
             ctx.beginPath();
             object.rad = (object.angle * Math.PI) / 180;
             ctx.save();
-            var cx = object.x + object.width / 2;
-            var cy = object.y + object.height / 2;
-            ctx.globalAlpha = object.opacity;
-            ctx.setTransform(
-                Math.cos(object.rad),
-                Math.sin(object.rad),
-                -Math.sin(object.rad),
-                Math.cos(object.rad),
-                cx - cx * Math.cos(object.rad) + cy * Math.sin(object.rad),
-                cy - cx * Math.sin(object.rad) - cy * Math.cos(object.rad)
-            );
-            ctx.drawImage(image, object.x, object.y, object.width, object.height);
-            ctx.restore();});
+            let cx = object.x + object.width / 2;
+            let cy = object.y + object.height / 2;
+            if(newImage == null){ // fist img
+                ctx.globalAlpha = object.currentOpacity * (1 - transitionProgress);
+                ctx.setTransform(
+                    Math.cos(object.rad),
+                    Math.sin(object.rad),
+                    -Math.sin(object.rad),
+                    Math.cos(object.rad),
+                    cx - cx * Math.cos(object.rad) + cy * Math.sin(object.rad),
+                    cy - cx * Math.sin(object.rad) - cy * Math.cos(object.rad)
+                );
+                ctx.drawImage(image, object.x, object.y, object.width, object.height);
+            }
+            if (newImage) { // reset img
+                ctx.globalAlpha = object.currentOpacity * transitionProgress;
+                ctx.setTransform(
+                    Math.cos(object.rad),
+                    Math.sin(object.rad),
+                    -Math.sin(object.rad),
+                    Math.cos(object.rad),
+                    cx - cx * Math.cos(object.rad) + cy * Math.sin(object.rad),
+                    cy - cx * Math.sin(object.rad) - cy * Math.cos(object.rad)
+                );
+                ctx.drawImage(newImage, object.x, object.y, object.width, object.height);
+            }
+            ctx.restore();
+        });
     }
     function draw() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawobjects();
     }
+    // Update effec
     function update() {
-        objects.map((object) => {
-            var dist = Math.sqrt((object.x - mouse.x) ** 2 + (object.y - mouse.y) ** 2);
+        objects.forEach(object => {
+            let dist = Math.sqrt((object.x - mouse.x) ** 2 + (object.y - mouse.y) ** 2);
             if (dist < minDist) {
-                var force = minDist / (dist * dist),
+                let force = minDist / (dist * dist),
                     xcomp = (mouse.x - object.x) / dist,
                     ycomp = (mouse.y - object.y) / dist,
-                    deltaV = force * 2; // deplay when hover mouse
+                    deltaV = force * 2;
                 object.vX -= deltaV * xcomp;
                 object.vY -= deltaV * ycomp;
-                
-                if (object.d * xcomp > 0) object.d = 0 - object.d;
-                else object.vX *= .98;
-                if (object.vY < object.speed) object.vY = object.speed
+                if (object.d * xcomp > 0) object.d = -object.d;
+                else object.vX *= 0.98;
+                if (object.vY < object.speed) object.vY = object.speed;
                 object.vX += Math.cos(object.step += (Math.random() * 0.05)) * object.stepSize;
             }
             object.y += object.vY;
             object.x += object.vX + object.d;
-            
-            var _angle = Math.random() + 0.2;
-            // stuff.angle += _angle;
-            if (object._ratate == 0) object.angle += _angle;
+            let _angle = Math.random() + 0.2;
+            if (object._rotate === 0) object.angle += _angle;
             else object.angle -= _angle;
-            
-            if (object.y > canvas.height) reset(object);
-            if (object.x > canvas.width || object.x < (0 - object.width)) reset(object);
+            if (object.y > canvas.height || object.x > canvas.width || object.x < -object.width) reset(object);
         });
+
+        if (newImage && transitionProgress < 1) transitionProgress += 0.01; 
     }
     function reset(object) {
         object.opacity = Math.random() + 0.4;
         object.width = (Math.floor(Math.random() * 20) + 20) * (object.opacity + 0.4);
         object.height = image.naturalHeight / image.naturalWidth * object.width;
-        object.x = Math.floor(Math.random() * canvas.width);
+        object.x = Math.random() * canvas.width;
         object.y = 0 - object.height;
-        object.speed = Math.random() * 1 + 0.5
+        object.speed = Math.random() * 1 + 0.5;
         object.vY = object.speed;
         object.vX = 0;
-        object._ratate = Math.random();
+        object._rotate = Math.random();
     }
-    canvas.addEventListener('mousemove', function(e){
+    // Click
+    canvas.addEventListener('mousemove', function(e) {
         mouse.x = e.clientX;
         mouse.y = e.clientY;
     });
@@ -192,22 +211,27 @@
         requestAnimationFrame(tick);
     }
     tick();
+    //Resize
     window.addEventListener('resize', () => {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
     });
-// -------------------Modal-----------------------------
+
+// ------------------- Modal -----------------------------
     const btnClose = document.querySelector('.close');
     const readEmail = document.querySelector('.js-email');
     const modal = document.querySelector('.js-modal');
     const modalContainer = document.querySelector('.js-modal-container');
-
-    function show() { modal.classList.add('open');}
-    function hide() { modal.classList.remove('open');}
-    readEmail.addEventListener('click', show);
+    function show() { modal.classList.add('open'); }
+    function hide() { modal.classList.remove('open'); }
+    readEmail.addEventListener('click', function() {
+        show();
+        newImage = new Image();
+        newImage.src = './images/heart.png';
+        transitionProgress = 0; 
+    });
     modal.addEventListener('click', hide);
-    modalContainer.addEventListener('click', function (event) { event.stopPropagation();});
-
+    modalContainer.addEventListener('click', function (event) { event.stopPropagation(); })
 // --------------------Card------------------------------------
     document.addEventListener('DOMContentLoaded', function() {
         document.getElementsByClassName('open')[0].addEventListener('click', function () {
