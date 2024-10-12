@@ -14,6 +14,8 @@
     position:absolute;
     top:0;
     left:0;
+    right: 0;
+    bottom: 0;
     background-image: url(./images/main-background.jpg);
     background-size:cover;
     background-position: center;
@@ -357,10 +359,11 @@
 }
 
 .card-center-content-bottom{
-    position: absolute;
+    text-align: center;
     bottom: 25px;
     font-family: 'Playball', cursive;
-    font-size: 15px;
+    margin-top: 50px;
+    font-size: 14.8px;
     color: #081938;
 }
 
